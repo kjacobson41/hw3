@@ -4,18 +4,6 @@ let geoCheck = function(event) {
 
 jQuery('#get_forecast').on('click',geoCheck)
 
-let updateWidget = function(data) {
-
-  let tempNow = data.main.temp.toFixed(0)
-  let icon = data.weather["0"].icon
-  let city = data.name
-
-  jQuery(".card-text").text("It is " + tempNow + " degrees outside.")
-  jQuery(".card-title").text(city)
-  jQuery("img").attr("src", "http://openweathermap.org/img/w/" + icon + ".png")
-
-}
-
 let getWeather = function(info) {
   let latitude = info.coords.latitude.toFixed(4);
   let longitude = info.coords.longitude.toFixed(4);
@@ -29,6 +17,17 @@ let getWeather = function(info) {
   fetch(weatherServiceURL).then(convertToJSON).then(updateWidget).catch(displayError);
 }
 
+let updateWidget = function(data) {
+
+  let tempNow = data.main.temp.toFixed(0)
+  let icon = data.weather["0"].icon
+  let city = data.name
+
+  jQuery(".card-text").text("It is " + tempNow + " degrees outside.")
+  jQuery(".card-title").text(city)
+  jQuery("img").attr("src", "http://openweathermap.org/img/w/" + icon + ".png")
+
+}
 
 let convertToJSON = function(rawData) { return rawData.json(); }
 let displayError = function(error) { console.debug(error); }
